@@ -17,28 +17,28 @@ export async function createSecureNotes(req: Request, res: Response) {
   res.sendStatus(201);
 };
 
-// export async function getAllSecureNotes(req: Request, res: Response) {
-//   const { id: userId }: Id = res.locals.token;
+export async function getAllSecureNotes(req: Request, res: Response) {
+  const { id: userId }: Id = res.locals.token;
 
-//   const secureNotes = await secureNotesService.getAllSecureNotes(userId);
+  const secureNotes = await secureNotesService.getAllSecureNotes(userId);
 
-//   res.status(200).send(secureNotes);
-// };
+  res.status(200).send(secureNotes);
+};
 
-// export async function getSecureNotesById(req: Request, res: Response) {
-//   const { id: userId }: Id = res.locals.token;
-//   const { id: secureNotesIdString } = req.params;
+export async function getSecureNotesById(req: Request, res: Response) {
+  const { id: userId }: Id = res.locals.token;
+  const { id: secureNotesIdString } = req.params;
 
-//   const secureNotes = await secureNotesService.getSecureNotesById(userId, secureNotesIdString);
+  const secureNotes = await secureNotesService.getSecureNotesById(userId, secureNotesIdString);
 
-//   res.status(200).send(secureNotes);
-// };
+  res.status(200).send(secureNotes);
+};
 
-// export async function deleteSecureNotesById(req: Request, res: Response) {
-//   const { id: userId }: Id = res.locals.token;
-//   const { id: secureNotesIdString } = req.params;
+export async function deleteSecureNotesById(req: Request, res: Response) {
+  const { id: userId }: Id = res.locals.token;
+  const { id: secureNotesIdString } = req.params;
 
-//   await secureNotesService.deleteSecureNotesById(userId, secureNotesIdString);
+  await secureNotesService.deleteSecureNotesById(userId, secureNotesIdString);
 
-//   res.sendStatus(200);
-// };
+  res.sendStatus(200);
+};

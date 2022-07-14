@@ -1,4 +1,4 @@
-import { Credentials, Users } from "@prisma/client";
+import { Credentials } from "@prisma/client";
 import Cryptr from "cryptr";
 
 import { CreateCredentialsData } from "../controllers/credentialsController";
@@ -12,18 +12,18 @@ export async function createCredentials(credentialsData: CreateCredentialsData) 
   await isTitleValid(title, userId);
   const passwordHash = await encryptPassword(password);
 
-  await credentialsRepository.createCredentials({ ...credentialsData, password: passwordHash });
+  await credentialsRepository.create({ ...credentialsData, password: passwordHash });
 };
 
 export async function getAllCredentials(userId: number) {
-  const credentials = await credentialsRepository.getAllCredentials(userId);
+  const credentials = await credentialsRepository.getAll(userId);
   const credentialsDecrypted = await decryptPasswordMap(credentials);
 
   return credentialsDecrypted;
 };
 
 export async function getCredentialsById(userId: number, credentialIdString: string) {
-  const credentialId = await isParamsValid(credentialIdString);
+  const credentialId = await utils.isParamsValid(credentialIdString);
   const credentials = await getCredentials(userId, credentialId)
   const credentialsDecrypted = await decryptPassword(credentials);
 
@@ -31,26 +31,21 @@ export async function getCredentialsById(userId: number, credentialIdString: str
 };
 
 export async function deleteCredentialsById(userId: number, credentialIdString: string) {
-  const credentialId = await isParamsValid(credentialIdString);
+  const credentialId = await utils.isParamsValid(credentialIdString);
   await getCredentials(userId, credentialId)
-  await credentialsRepository.deleteCredentialsById(credentialId);
+  await credentialsRepository.deleteById(credentialId);
 };
 
 //AUXILIARY FUNCTIONS
-async function isParamsValid(credentialIdString: string) {
-  const pattern = /[a-z]|[A-Z]/;
-  const isValid = pattern.test(credentialIdString);
-  if (isValid) await utils.errorTypes("bad_request", "Invalid Params");
-  return parseInt(credentialIdString);
-};
+
 
 async function isTitleValid(title: string, userId: number) {
-  const result = await credentialsRepository.getCredentialsByTitleAndId(title, userId);
+  const result = await credentialsRepository.getByTitleAndId(title, userId);
   if (result) await utils.errorTypes("conflict", "Title already registered");
 };
 
 async function getCredentials(userId: number, credentialId: number) {
-  const credentials = await credentialsRepository.getCredentialsById(userId, credentialId);
+  const credentials = await credentialsRepository.getById(userId, credentialId);
   if (!credentials) await utils.errorTypes(
     "unauthorized",
     "This Credential Doesn't Exist or You're not Authorized to Access"
