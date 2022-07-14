@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 
+export type Type = "not_found" | "bad_request" | "unauthorized" | "conflict";
+
 interface AppError {
-  type: "not_found" | "bad_request" | "unauthorized" | "conflict";
+  type: Type;
   message: string;
 };
 
