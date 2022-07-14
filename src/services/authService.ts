@@ -8,6 +8,7 @@ import * as utils from "../utils/utils.js"
 export type CreateUserData = Omit<Users, "id" | "createdAt">
 export type CreateSessionData = Omit<Sessions, "id" | "createdAt">
 
+//SERVICES
 export async function register(userData: CreateUserData) {
   await isEmailConflicting(userData.email);
 
@@ -26,6 +27,8 @@ export async function login(userData: CreateUserData) {
   return token;
 };
 
+
+//AUXILIARY FUNCTIONS
 async function isEmailConflicting(email: string) {
   const result = await authRepository.getUserByEmail(email);
   if (result) await utils.errorTypes("conflict", "This email already exists in our database");
