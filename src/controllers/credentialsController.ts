@@ -7,7 +7,7 @@ export type CreateCredentialsData = Omit<Credentials, "id" | "createdAt">;
 interface Id { id: number; };
 
 export async function createCredentials(req: Request, res: Response) {
-  const { id: userId }: { id: string } = res.locals.token;
+  const { id: userId }: Id = res.locals.token;
   const credentialsData: CreateCredentialsData = { userId, ...req.body };
 
   await credentialsService.createCredentials(credentialsData);
@@ -30,4 +30,13 @@ export async function getCredentialsById(req: Request, res: Response) {
   const credentials = await credentialsService.getCredentialsById(userId, credentialIdString);
 
   res.status(200).send(credentials);
+};
+
+export async function deleteCredentialsById(req: Request, res: Response) {
+  const { id: userId }: Id = res.locals.token;
+  const { id: credentialIdString } = req.params;
+
+  await credentialsService.deleteCredentialsById(userId, credentialIdString);
+
+  res.sendStatus(200);
 };

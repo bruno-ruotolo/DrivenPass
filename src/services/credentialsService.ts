@@ -24,15 +24,16 @@ export async function getAllCredentials(userId: number) {
 
 export async function getCredentialsById(userId: number, credentialIdString: string) {
   const credentialId = await isParamsValid(credentialIdString);
-  const credentials = await credentialsRepository.getCredentialsById(userId, credentialId);
-  if (!credentials) await utils.errorTypes(
-    "unauthorized",
-    "This Credential Doesn't Exist or You're not Authorized to Access"
-  );
-
+  const credentials = await getCredentials(userId, credentialId)
   const credentialsDecrypted = await decryptPassword(credentials);
 
   return credentialsDecrypted;
+};
+
+export async function deleteCredentialsById(userId: number, credentialIdString: string) {
+  const credentialId = await isParamsValid(credentialIdString);
+  await getCredentials(userId, credentialId)
+  await credentialsRepository.deleteCredentialsById(credentialId);
 };
 
 //AUXILIARY FUNCTIONS
@@ -46,6 +47,15 @@ async function isParamsValid(credentialIdString: string) {
 async function isTitleValid(title: string, userId: number) {
   const result = await credentialsRepository.getCredentialsByTitleAndId(title, userId);
   if (result) await utils.errorTypes("conflict", "Title already registered");
+};
+
+async function getCredentials(userId: number, credentialId: number) {
+  const credentials = await credentialsRepository.getCredentialsById(userId, credentialId);
+  if (!credentials) await utils.errorTypes(
+    "unauthorized",
+    "This Credential Doesn't Exist or You're not Authorized to Access"
+  );
+  return credentials;
 };
 
 async function encryptPassword(password: string) {
