@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export type Type = "not_found" | "bad_request" | "unauthorized" | "conflict";
+export type Type = "not_found" | "bad_request" | "unauthorized" | "conflict" | "unprocessable_entity";
 
 interface AppError {
   type: Type;

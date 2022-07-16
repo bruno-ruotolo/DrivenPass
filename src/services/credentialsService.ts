@@ -37,8 +37,6 @@ export async function deleteCredentialsById(userId: number, credentialIdString: 
 };
 
 //AUXILIARY FUNCTIONS
-
-
 async function isTitleValid(title: string, userId: number) {
   const result = await credentialsRepository.getByTitleAndId(title, userId);
   if (result) await utils.errorTypes("conflict", "Title already registered");
@@ -48,7 +46,7 @@ async function getCredentials(userId: number, credentialId: number) {
   const credentials = await credentialsRepository.getById(userId, credentialId);
   if (!credentials) await utils.errorTypes(
     "unauthorized",
-    "This Credential Doesn't Exist or You're not Authorized to Access"
+    "This Element Doesn't Exist or You're not Authorized to Access"
   );
   return credentials;
 };
@@ -61,26 +59,26 @@ async function encryptPassword(password: string) {
   return encryptPassword;
 };
 
-async function decryptPasswordMap(credentials: Credentials[]) {
+async function decryptPasswordMap(elements: Credentials[]) {
   const CRYPTR_SECRET_KEY = process.env.CRYPTR_SECRET_KEY;
   const cryptr = new Cryptr(CRYPTR_SECRET_KEY);
 
-  const credentialsDecrypted = credentials.map(credential => {
-    const decryptPassword = cryptr.decrypt(credential.password);
-    return { ...credential, password: decryptPassword };
+  const elementDecrypted = elements.map(element => {
+    const decryptPassword = cryptr.decrypt(element.password);
+    return { ...element, password: decryptPassword };
   });
 
-  return credentialsDecrypted;
+  return elementDecrypted;
 };
 
-async function decryptPassword(credentials: Credentials) {
+async function decryptPassword(element: Credentials) {
   const CRYPTR_SECRET_KEY = process.env.CRYPTR_SECRET_KEY;
   const cryptr = new Cryptr(CRYPTR_SECRET_KEY);
 
-  const decryptPassword = cryptr.decrypt(credentials.password);
-  const credentialsDecrypted = { ...credentials, password: decryptPassword };
+  const decryptPassword = cryptr.decrypt(element.password);
+  const elementDecrypted = { ...element, password: decryptPassword };
 
-  return credentialsDecrypted;
+  return elementDecrypted;
 };
 
 

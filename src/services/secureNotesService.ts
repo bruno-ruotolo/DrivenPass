@@ -40,7 +40,7 @@ async function getSecureNotes(userId: number, id: number) {
   const result = await secureNotesRepository.getById(userId, id);
   if (!result) await utils.errorTypes(
     "unauthorized",
-    "This Credential Doesn't Exist or You're not Authorized to Access"
+    "This Element Doesn't Exist or You're not Authorized to Access"
   );
   return result;
 };

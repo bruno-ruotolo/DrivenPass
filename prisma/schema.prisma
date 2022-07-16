@@ -64,6 +64,7 @@ model Cards {
   cvv            String
   expirationDate String
   password       String
+  isVirtual      Boolean
   type           Type
   createdAt      DateTime @default(now())
   user           Users    @relation(fields: [userId], references: [id])

@@ -7,8 +7,6 @@ export type CreateSecureNotesData = Omit<SecureNotes, "id" | "createdAt">;
 interface Id { id: number; };
 
 export async function createSecureNotes(req: Request, res: Response) {
-  console.log("🚀 ~ file: secureNoteController.ts ~ line 12 ~ createSecureNotes ~ res.locals.token", res.locals.token)
-
   const { id: userId }: Id = res.locals.token;
   const secureNotesData: CreateSecureNotesData = { userId, ...req.body };
 
