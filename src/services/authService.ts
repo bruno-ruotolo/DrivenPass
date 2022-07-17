@@ -1,12 +1,10 @@
-import { Users, Sessions } from "@prisma/client";
+import { Users } from "@prisma/client";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-import * as authRepository from "../repositories/authRepository.js"
-import * as utils from "../utils/utils.js"
-
-export type CreateUserData = Omit<Users, "id" | "createdAt">
-export type CreateSessionData = Omit<Sessions, "id" | "createdAt">
+import { CreateUserData } from "../controllers/authController.js";
+import * as authRepository from "../repositories/authRepository.js";
+import * as utils from "../utils/utils.js";
 
 //SERVICES
 export async function register(userData: CreateUserData) {
@@ -24,9 +22,8 @@ export async function login(userData: CreateUserData) {
 
   await authRepository.createSession({ userId: user.id, token });
 
-  return token;
+  return { token };
 };
-
 
 //AUXILIARY FUNCTIONS
 async function isEmailConflicting(email: string) {
@@ -36,13 +33,13 @@ async function isEmailConflicting(email: string) {
 
 async function isEmailExisting(email: string) {
   const result = await authRepository.getUserByEmail(email);
-  if (!result) await utils.errorTypes("unauthorized", "This email/password is invalid");
+  if (!result) await utils.unauthorizedAuthError();
   return result;
 };
 
 async function isCredentialsValid(password: string, passwordHash: string) {
   if (!bcrypt.compareSync(password, passwordHash)) {
-    await utils.errorTypes("unauthorized", "This email/password is invalid");
+    await utils.unauthorizedAuthError()
   };
 };
 

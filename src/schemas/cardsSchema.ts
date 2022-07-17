@@ -1,4 +1,5 @@
 import Joi from "joi";
+
 import { CreateCardData } from "../controllers/cardsController.js";
 
 export const cardsSchema = Joi.object<CreateCardData>({

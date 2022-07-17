@@ -2,13 +2,11 @@ import { CreateSecureNotesData } from "../controllers/secureNoteController.js";
 import * as secureNotesRepository from "../repositories/secureNotesRepository.js";
 import * as utils from "../utils/utils.js";
 
-//SERVICES
 export async function createSecureNotes(secureNotesData: CreateSecureNotesData) {
   const { title, userId } = secureNotesData;
 
-  await isTitleValid(title, userId);
+  await utils.isTitleValid(title, userId, secureNotesRepository);
   await secureNotesRepository.create(secureNotesData);
-
 };
 
 export async function getAllSecureNotes(userId: number) {
@@ -19,28 +17,13 @@ export async function getAllSecureNotes(userId: number) {
 
 export async function getSecureNotesById(userId: number, idString: string) {
   const secureNoteId = await utils.isParamsValid(idString);
-  const secureNote = await getSecureNotes(userId, secureNoteId)
+  const secureNote = await utils.getRepositoryById(userId, secureNoteId, secureNotesRepository);
 
   return secureNote;
 };
 
 export async function deleteSecureNotesById(userId: number, idString: string) {
   const secureNoteId = await utils.isParamsValid(idString);
-  await getSecureNotes(userId, secureNoteId)
+  await utils.getRepositoryById(userId, secureNoteId, secureNotesRepository);
   await secureNotesRepository.deleteById(secureNoteId);
-};
-
-//AUXILIARY FUNCTIONS
-async function isTitleValid(title: string, userId: number) {
-  const result = await secureNotesRepository.getByTitleAndId(title, userId);
-  if (result) await utils.errorTypes("conflict", "Title already registered");
-};
-
-async function getSecureNotes(userId: number, id: number) {
-  const result = await secureNotesRepository.getById(userId, id);
-  if (!result) await utils.errorTypes(
-    "unauthorized",
-    "This Element Doesn't Exist or You're not Authorized to Access"
-  );
-  return result;
 };

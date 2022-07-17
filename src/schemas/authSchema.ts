@@ -1,5 +1,6 @@
 import Joi from "joi";
-import { CreateUserData } from "../services/authService";
+
+import { CreateUserData } from "../controllers/authController.js";
 
 export const authSchema = Joi.object<CreateUserData>({
   email: Joi.string().email().required(),

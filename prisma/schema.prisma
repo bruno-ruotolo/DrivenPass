@@ -41,6 +41,7 @@ model Credentials {
   createdAt DateTime @default(now())
   user      Users    @relation(fields: [userId], references: [id])
 
+  @@unique([title, userId])
   @@map("credentials")
 }
 
@@ -52,6 +53,7 @@ model SecureNotes {
   createdAt DateTime @default(now())
   user      Users    @relation(fields: [userId], references: [id])
 
+  @@unique([title, userId])
   @@map("secure_notes")
 }
 
@@ -69,6 +71,8 @@ model Cards {
   createdAt      DateTime @default(now())
   user           Users    @relation(fields: [userId], references: [id])
 
+
+  @@unique([title, userId])
   @@map("cards")
 }
 

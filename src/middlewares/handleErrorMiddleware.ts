@@ -11,7 +11,8 @@ const ERRORS = {
   unauthorized: 401,
   conflict: 409,
   not_found: 404,
-  bad_request: 400
+  bad_request: 400,
+  unprocessable_entity: 422
 };
 
 export default function handleError(error: AppError, req: Request, res: Response, next: NextFunction) {

@@ -1,19 +1,19 @@
 import prisma from "../config/db.js";
 
-import { CreateSessionData, CreateUserData } from "../services/authService.js";
+import { CreateSessionData, CreateUserData } from "../controllers/authController.js";
 
 export async function register(userData: CreateUserData) {
-  prisma.users.create({ data: userData });
+  await prisma.users.create({ data: userData });
 };
 
 export async function getUserByEmail(email: string) {
-  return prisma.users.findFirst({ where: { email } });
+  return await prisma.users.findFirst({ where: { email } });
 };
 
 export async function createSession(sessionData: CreateSessionData) {
-  prisma.sessions.create({ data: sessionData });
+  await prisma.sessions.create({ data: sessionData });
 };
 
 export async function getSessionByToken(token: string) {
-  return prisma.sessions.findFirst({ where: { token } });
+  return await prisma.sessions.findFirst({ where: { token } });
 }
