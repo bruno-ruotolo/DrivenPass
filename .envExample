@@ -1,4 +1,4 @@
 DATABASE_URL= Database Connection String URL
 PORT= Running Port
 CRYPTR_SECRET_KEY= Secret Key for Cryptr
-MODE= Use DEV for development or PROD for production
+JWT_SECRET_KEY= Secret Key for JWT
