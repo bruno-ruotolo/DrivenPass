@@ -8,7 +8,7 @@
 # About
 
 Have you ever thought about saving all your passwords in one place and not worrying about memorizing them all? This application will help you with that. 
-With DrivenPass we can save our credential data from websites, cards, wifi and even secure notes.
+With DrivenPass we can save your credential data from websites, cards, wifi and even some secure notes.
 
 
 ## Technologies
@@ -28,7 +28,7 @@ These are the main tools, frameworks and languages that were used in this projec
 
 ## How to Run
 
-You can use the api in two ways, cloning this repository or testing with our deploy running on Heroku
+You can use this API in two ways, cloning this repository or testing with our deploy running on Heroku
 
 To clone the project, run the following command:
 
@@ -48,7 +48,7 @@ Finally, start the server:
 npm start
 ```
 
-You can now access the API's endpoints locally, user the Prisma Migrations to create your database:
+You can now access the API's endpoints locally, use the Prisma Migrations to create your database:
 
 ```git
 npm prisma migrate dev
@@ -70,7 +70,7 @@ Here you can check the endpoints related to the project, as well as their respec
 ```json
 {
   "email": "user@myemail.com",
-  "password": "mypassword"
+  "password": "mypassword" // >= 10 char
 }
 ```
 
@@ -159,7 +159,7 @@ Here you can check the endpoints related to the project, as well as their respec
 ```
 
 
-#### Delete Credential By ID**
+#### Delete Credential By ID
 - DELETE _/credentials/:id_
 
 - Header
@@ -237,7 +237,7 @@ Here you can check the endpoints related to the project, as well as their respec
 ```
 
 
-#### Delete Secure Notes By ID**
+#### Delete Secure Notes By ID
 - DELETE _/secure-notes/:id_
 
 - Header
@@ -332,7 +332,7 @@ Here you can check the endpoints related to the project, as well as their respec
 ```
 
 
-#### Delete Card By ID**
+#### Delete Card By ID
 - DELETE _/cards/:id_
 
 - Header
@@ -412,7 +412,7 @@ Here you can check the endpoints related to the project, as well as their respec
 ```
 
 
-#### Delete WIFI By ID**
+#### Delete WIFI By ID
 - DELETE _/wifi/:id_
 
 - Header
