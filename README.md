@@ -5,7 +5,7 @@
     <p> A Back-End Project
 </div>
 
-## About
+# About
 
 Have you ever thought about saving all your passwords in one place and not worrying about memorizing them all? This application will help you with that. 
 With DrivenPass we can save our credential data from websites, cards, wifi and even secure notes.
@@ -48,6 +48,56 @@ Finally, start the server:
 npm start
 ```
 
-You can now access the API's endpoints by navigating to http://localhost:5000/
+You can now access the API's endpoints locally, user the Prisma Migrations to create your database:
+
+```git
+npm prisma migrate dev
+```
 
 If you want to use the deployed API access: https://drivenpass-ruotolo.herokuapp.com
+
+# API Reference
+
+Here you can check the endpoints related to the project, as well as their respective characteristics. Have Fun 😄
+
+## Routes
+### Authentication Routes
+
+- **Register**
+    - POST _/sign-up_
+    - Body   
+     
+```json
+{
+  "email": "user@myemail.com",
+  "password": "mypassword"
+}
+```
+
+- **Login**
+     - POST _/_
+    - Body
+
+```json
+{
+  "email": "user@myemail.com",
+  "password": "mypassword"
+}
+```
+
+### Websites Credentials Routes
+
+- **Create Credential**
+    - POST _/credentials_
+    - Body
+
+
+```json
+{
+    "title":"My Title",
+    "url":"https://www.myemail.com",
+    "username":"user",
+    "password": "mypassword"
+}
+```
+
