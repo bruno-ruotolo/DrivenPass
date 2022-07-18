@@ -63,10 +63,10 @@ Here you can check the endpoints related to the project, as well as their respec
 ## Routes
 ### Authentication Routes
 
-- **Register**
-    - POST _/sign-up_
-    - Body   
-     
+#### Register
+   - POST _/sign-up_
+
+   - Body  
 ```json
 {
   "email": "user@myemail.com",
@@ -74,24 +74,32 @@ Here you can check the endpoints related to the project, as well as their respec
 }
 ```
 
-- **Login**
-     - POST _/_
-    - Body
 
+#### Login
+- POST _/_
+
+- Body
 ```json
 {
   "email": "user@myemail.com",
   "password": "mypassword"
 }
 ```
+---
 
 ### Websites Credentials Routes
 
-- **Create Credential**
-    - POST _/credentials_
-    - Body
+#### Create Credential
+- POST _/credentials_
 
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
 
+- Body
 ```json
 {
     "title":"My Title",
@@ -101,3 +109,322 @@ Here you can check the endpoints related to the project, as well as their respec
 }
 ```
 
+
+#### Get All My Credentials
+- GET _/credentials_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+[
+    {
+        "id": 0
+        "userId": 0,
+        "title":"My Title",
+        "url":"https://www.myemail.com",
+        "username":"user",
+        "password": "mypassword"
+        "createdAt": "2022-07-17T16:46:42.056Z"
+    }
+] {...}
+```
+
+#### Get Credential By ID
+- GET _/credentials/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+{
+    "id": 0
+    "userId": 0,
+    "title":"My Title",
+    "url":"https://www.myemail.com",
+    "username":"user",
+    "password": "mypassword"
+    "createdAt": "2022-07-17T16:46:42.056Z"
+}
+```
+
+
+#### Delete Credential By ID**
+- DELETE _/credentials/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+---
+
+### Secure Notes Routes
+
+#### Create Secure Notes
+- POST _/secure-notes_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Body
+```json
+{
+    "title":"My Title",
+    "note" : "My Note"
+}
+```
+
+
+#### Get All My Secure Notes
+- GET _/secure-notes_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+[
+  {
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "note": "My Note",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+  }
+] {...}
+```
+
+#### Get Secure Notes By ID
+- GET _/secure-notes/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+{
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "note": "My Note",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+}
+```
+
+
+#### Delete Secure Notes By ID**
+- DELETE _/secure-notes/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+---
+
+### Cards Routes
+
+#### Create Cards
+- POST _/cards_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Body
+```json
+{
+  "title":"My Title",
+  "number":"0000000000000000",
+  "name":"USER U USERS",
+  "cvv":"000",
+  "expirationDate":"12/22",
+  "password":"0000",
+  "isVirtual":true, //true or false
+  "type":"debit" //"credit", "debit", "both"
+}
+```
+
+#### Get All My Cards
+- GET _/cards_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+[
+  {
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "number": "0000000000000000",
+    "name": "USER U USERS",
+    "cvv": "000",
+    "expirationDate": "12/22",
+    "password": "0000",
+    "isVirtual": true,
+    "type": "debit",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+  }
+] {...}
+```
+
+#### Get Card By ID
+- GET _/cards/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+{
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "number": "0000000000000000",
+    "name": "USER U USERS",
+    "cvv": "000",
+    "expirationDate": "12/22",
+    "password": "0000",
+    "isVirtual": true,
+    "type": "debit",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+}
+```
+
+
+#### Delete Card By ID**
+- DELETE _/cards/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+---
+
+### WIFI Credentials Routes
+
+#### Create WIFI 
+- POST _/wifi_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Body
+```json
+{
+  "title":"My Title",
+  "name":"USER WIFI",
+  "password":"000000",
+}
+```
+
+#### Get All My WIFIs
+- GET _/wifi_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+[
+  {
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "name":"USER WIFI",
+    "password":"000000",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+  }
+] {...}
+```
+
+#### Get WIFI By ID
+- GET _/wifi/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+- Response
+```json
+{
+    "id": 0,
+    "userId": 0,
+    "title": "My Title",
+    "name":"USER WIFI",
+    "password":"000000",
+    "createdAt": "2022-07-17T16:47:19.507Z"
+}
+```
+
+
+#### Delete WIFI By ID**
+- DELETE _/wifi/:id_
+
+- Header
+```json
+{
+    "Authorization" : "Bearer <token>"
+}
+``` 
+
+## Authors
+
+[![Gmail Badge](https://img.shields.io/badge/-brunoaruotolo@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:)](mailto:brunoaruotolo@gmail.com)
+[![Linkedin Badge](https://img.shields.io/badge/-brunoamaralruotolo-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/bruno-amaral-ruotolo-295876186/)](https://www.linkedin.com/in/bruno-amaral-ruotolo-295876186/)
+
+- [@brunoruotolo](https://github.com/bruno-ruotolo)
